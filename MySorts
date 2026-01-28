@@ -1,0 +1,37 @@
+public class MySorts {
+
+    public static void quicksort(IList<Integer> list) {
+        if (list == null || list.size() <= 1) {
+            return;
+        }
+        quicksortHelper(list, 0, list.size() - 1);
+    }
+
+    private static void quicksortHelper(IList<Integer> list, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(list, low, high);
+            quicksortHelper(list, low, pivotIndex - 1);
+            quicksortHelper(list, pivotIndex + 1, high);
+        }
+    }
+
+    private static int partition(IList<Integer> list, int low, int high) {
+        Integer pivot = list.get(high); // pivot is the last element
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (list.get(j).compareTo(pivot) <= 0) {
+                i++;
+                swap(list, i, j);
+            }
+        }
+        swap(list, i + 1, high);
+        return i + 1;
+    }
+
+    private static void swap(IList<Integer> list, int index1, int index2) {
+        Integer temp = list.get(index1);
+        list.set(index1, list.get(index2));
+        list.set(index2, temp);
+    }
+}
